@@ -1,11 +1,23 @@
 require_relative 'lib/knight'
 
-board = Board.new
+def notation(node)
+  [('a'..'h').to_a.index(node[0]), node[1].to_i - 1]
+end
 
-knight = Knight.new([3, 3], board)
+print 'Please enter starting node (a1-h8): '
+start = notation gets.chomp
 
-pp board.board
+print 'Please enter ending node (a1-h8): '
+ending = notation gets.chomp
 
-p Board.translate_notation :g3
+knight = Knight.new
+moves = knight.knight_moves start, ending
 
-p knight.legal_moves(:g3)
+puts "The knight can move from #{start} to #{ending} like so:"
+
+moves.each do |move|
+  print "\t"
+  print move
+  print ' =>' unless moves.last == move
+  puts
+end
